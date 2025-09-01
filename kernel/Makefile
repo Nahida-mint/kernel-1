@@ -94,6 +94,7 @@ obj-$(CONFIG_TASK_DELAY_ACCT) += delayacct.o
 obj-$(CONFIG_TASKSTATS) += taskstats.o tsacct.o
 obj-$(CONFIG_TRACEPOINTS) += tracepoint.o
 obj-$(CONFIG_LATENCYTOP) += latencytop.o
+obj-$(CONFIG_ELFCORE) += elfcore.o
 obj-$(CONFIG_FUNCTION_TRACER) += trace/
 obj-$(CONFIG_TRACING) += trace/
 obj-$(CONFIG_TRACE_CLOCK) += trace/
@@ -116,15 +117,19 @@ obj-$(CONFIG_TORTURE_TEST) += torture.o
 
 obj-$(CONFIG_HAS_IOMEM) += memremap.o
 
+obj-y += mi_iolimit_step.o
+obj-y += mi_iolimit_token.o
+obj-y += mi_iolimit_common.o
+
 $(obj)/configs.o: $(obj)/config_data.h
 
 targets += config_data.gz
-$(obj)/config_data.gz: $(KCONFIG_CONFIG) FORCE
+$(obj)/config_data.gz: arch/arm64/configs/stock_defconfig FORCE
 	$(call if_changed,gzip)
 
       filechk_ikconfiggz = (echo "static const char kernel_config_data[] __used = MAGIC_START"; cat $< | scripts/basic/bin2c; echo "MAGIC_END;")
 targets += config_data.h
-$(obj)/config_data.h: arch/arm64/configs/crux_stock_defconfig FORCE
+$(obj)/config_data.h: $(obj)/config_data.gz FORCE
 	$(call filechk,ikconfiggz)
 
 $(obj)/kheaders.o: $(obj)/kheaders_data.tar.xz
