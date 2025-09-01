@@ -316,7 +316,7 @@ struct task_cputime {
 
 enum vtime_state {
 	/* Task is sleeping or running in a CPU with VTIME inactive: */
-	VTIME_INACTIVE = 0，
+	VTIME_INACTIVE = 0,
 	/* Task runs in userspace in a CPU with VTIME active: */
 	VTIME_USER,
 	/* Task runs in kernelspace in a CPU with VTIME active: */
