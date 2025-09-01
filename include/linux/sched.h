@@ -316,7 +316,7 @@ struct task_cputime {
 
 enum vtime_state {
 	/* Task is sleeping or running in a CPU with VTIME inactive: */
-	VTIME_INACTIVE = 0,
+	VTIME_INACTIVE = 0，
 	/* Task runs in userspace in a CPU with VTIME active: */
 	VTIME_USER,
 	/* Task runs in kernelspace in a CPU with VTIME active: */
@@ -892,6 +892,8 @@ struct task_struct {
 #ifdef CONFIG_CGROUPS
 	/* disallow userland-initiated cgroup migration */
 	unsigned			no_cgroup_migration:1;
+	/* task is frozen/stopped (used by the cgroup freezer) */
+	unsigned			frozen:1;
 #endif
 
 	unsigned long			atomic_flags; /* Flags requiring atomic access. */
