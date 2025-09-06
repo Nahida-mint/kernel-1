@@ -13,6 +13,14 @@
 #include <crypto/algapi.h>
 #include <crypto/internal/scompress.h>
 
+extern int lz4kd_encode(void *mem, const u8 *src, u8 *dst, unsigned int slen,
+                        unsigned int dlen, int acceleration);
+extern int lz4kd_decode(const u8 *src, u8 *dst, unsigned int slen, unsigned int dlen);
+extern int lz4kd_encode_delta(void *mem, const u8 *src0, const u8 *src,
+                              u8 *dst, unsigned int slen, unsigned int dlen, unsigned int out_max);
+extern int lz4kd_decode_delta(const u8 *src, const u8 *dst0, u8 *dst,
+                              unsigned int slen, unsigned int dlen);
+extern unsigned int lz4kd_encode_state_bytes_min(void);
 
 struct lz4kd_ctx {
 	void *lz4kd_comp_mem;
