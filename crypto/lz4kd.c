@@ -12,6 +12,10 @@
 #include <linux/lz4kd.h>
 #include <crypto/algapi.h>
 #include <crypto/internal/scompress.h>
+#include "../../lib/lz4kd/lz4kd_encode.c"
+#include "../../lib/lz4kd/lz4kd_encode_delta.c"
+#include "../../lib/lz4kd/lz4kd_decode.c"
+#include "../../lib/lz4kd/lz4kd_decode_delta.c"
 
 
 struct lz4kd_ctx {
