@@ -270,4 +270,12 @@ obj-$(CONFIG_SBITMAP) += sbitmap.o
 
 obj-$(CONFIG_PARMAN) += parman.o
 
+obj-$(CONFIG_LZ4K_COMPRESS)   += lz4k/
+
+obj-$(CONFIG_LZ4K_DECOMPRESS) += lz4k/
+
+obj-$(CONFIG_LZ4KD_COMPRESS)  += lz4kd/
+
+obj-$(CONFIG_LZ4KD_DECOMPRESS)+= lz4kd/
+
 obj-y += crypto/

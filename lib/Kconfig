@@ -242,11 +242,38 @@ config LZO_DECOMPRESS
 config LZ4_COMPRESS
 	tristate
 
+config LZ4_DECOMPRESS
+	tristate
+
 config LZ4HC_COMPRESS
 	tristate
 
-config LZ4_DECOMPRESS
+config LZ4HC_DECOMPRESS
 	tristate
+
+config LZ4K_COMPRESS
+	tristate "LZ4K compression support (lib/lz4k)"
+	depends on CRYPTO_LZ4K
+	help
+	  Enable LZ4K compression library support. Needed for CRYPTO_LZ4K.
+
+config LZ4K_DECOMPRESS
+	tristate "LZK4 decompression support (lib/lz4k)"
+	depends on CRYPTO_LZ4K
+	help
+	  Enable LZ4K decompression library support. Needed for CRYPTO_LZ4K.
+
+config LZKD_COMPRESS
+	tristate "LZKD compression support (lib/lz4kd)"
+	depends on CRYPTO_LZ4KD
+	help
+	  Enable LZKD compression library support. Needed for CRYPTO_LZ4KD.
+
+config LZKD_DECOMPRESS
+	tristate "LZKD decompression support (lib/lz4kd)"
+	depends on CRYPTO_LZ4KD
+	help
+	  Enable LZKD decompression library support. Needed for CRYPTO_LZ4KD.
 
 config ZSTD_COMPRESS
 	select XXHASH
