@@ -28,6 +28,9 @@
 #include <soc/qcom/rpm-smd.h>
 #include <asm/tlbflush.h>
 #include <asm/cacheflush.h>
+#include <linux/topology.h>
+#include <linux/numa.h>
+#include <linux/memory_hotplug.h>
 
 #define RPM_DDR_REQ 0x726464
 #define AOP_MSG_ADDR_MASK		0xffffffff
@@ -40,6 +43,13 @@ static unsigned int offline_granule, sections_per_block;
 static bool is_rpm_controller;
 #define MODULE_CLASS_NAME	"mem-offline"
 #define BUF_LEN			100
+
+static inline int memory_add_physaddr_to_nid(phys_addr_t phys)
+{
+    // 直接使用 page_to_nid
+    struct page *page = pfn_to_page(phys >> PAGE_SHIFT);
+    return page_to_nid(page);
+}
 
 struct section_stat {
 	unsigned long success_count;
@@ -448,7 +458,7 @@ static int mem_online_remaining_blocks(void)
 								memblock);
 			continue;
 		}
-		nid = phys_to_target_node(phys_addr);
+		nid = memory_add_physaddr_to_nid(phys_addr);
 		if (add_memory(nid, phys_addr,
 				 MIN_MEMORY_BLOCK_SIZE * sections_per_block)) {
 			pr_warn("mem-offline: Adding memory block mem%lu failed\n",
