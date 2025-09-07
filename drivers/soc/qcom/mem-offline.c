@@ -37,6 +37,12 @@
 #define AOP_MSG_ADDR_HIGH_SHIFT		32
 #define MAX_LEN				96
 
+static inline int qcom_phys_to_nid(phys_addr_t phys)
+{
+    struct page *page = pfn_to_page(phys >> PAGE_SHIFT);
+    return page_to_nid(page);
+}
+
 static unsigned long start_section_nr, end_section_nr;
 static struct kobject *kobj;
 static unsigned int offline_granule, sections_per_block;
@@ -451,7 +457,7 @@ static int mem_online_remaining_blocks(void)
 								memblock);
 			continue;
 		}
-		nid = memory_add_physaddr_to_nid(phys_addr);
+		nid = qcom_phys_to_nid(phys_addr);
 		if (add_memory(nid, phys_addr,
 				 MIN_MEMORY_BLOCK_SIZE * sections_per_block)) {
 			pr_warn("mem-offline: Adding memory block mem%lu failed\n",
