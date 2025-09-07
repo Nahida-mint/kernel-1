@@ -44,13 +44,6 @@ static bool is_rpm_controller;
 #define MODULE_CLASS_NAME	"mem-offline"
 #define BUF_LEN			100
 
-static inline int memory_add_physaddr_to_nid(phys_addr_t phys)
-{
-    // 直接使用 page_to_nid
-    struct page *page = pfn_to_page(phys >> PAGE_SHIFT);
-    return page_to_nid(page);
-}
-
 struct section_stat {
 	unsigned long success_count;
 	unsigned long fail_count;
